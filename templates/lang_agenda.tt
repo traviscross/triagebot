@@ -31,6 +31,10 @@ Edit the schedule here: https://github.com/orgs/rust-lang/projects/31/views/7.
 
 (Meeting attendees, feel free to add items here!)
 
+## Nominated RFCs, PRs, and issues
+
+{{-issues_heading::render(issues=nominated)}}
+
 ## Action item review
 
 * [Action items list](https://hackmd.io/gstfhtXYTHa3Jv-P_2RK7A)
@@ -64,7 +68,3 @@ Edit the schedule here: https://github.com/orgs/rust-lang/projects/31/views/7.
 ## P-critical issues
 
 {{-issues_heading::render(issues=p_critical)}}
-
-## Nominated RFCs, PRs, and issues
-
-{{-issues_heading::render(issues=nominated)}}
