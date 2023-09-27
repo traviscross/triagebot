@@ -65,12 +65,6 @@ Edit the schedule here: https://github.com/orgs/rust-lang/projects/31/views/7.
 
 {{-issues_heading::render(issues=p_critical)}}
 
-## Nominated RFCs, PRs and issues discussed this meeting
-
-(none yet, move things from the section below as they are discussed)
-
-## Nominated RFCs, PRs and issues NOT discussed this meeting
-
-
+## Nominated RFCs, PRs, and issues
 
 {{-issues_heading::render(issues=nominated)}}
