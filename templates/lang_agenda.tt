@@ -9,16 +9,16 @@ date: {{CURRENT_DATE}}
 
 # T-lang meeting agenda
 
-* Meeting date: {{CURRENT_DATE}}
+- Meeting date: {{CURRENT_DATE}}
 
 ## Attendance
 
-* Team members:
-* Others:
+- Team members:
+- Others:
 
 ## Meeting roles
 
-* Minutes, driver:
+- Minutes, driver:
 
 ## Scheduled meetings
 
@@ -36,7 +36,7 @@ Edit the schedule here: https://github.com/orgs/rust-lang/projects/31/views/7.
 
 ## Action item review
 
-* [Action items list](https://hackmd.io/gstfhtXYTHa3Jv-P_2RK7A)
+- [Action items list](https://hackmd.io/gstfhtXYTHa3Jv-P_2RK7A)
 
 ## Pending lang team project proposals
 

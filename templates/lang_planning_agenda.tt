@@ -8,16 +8,16 @@ date: {{CURRENT_DATE}}
 
 # T-lang planning meeting agenda
 
-* Meeting date: {{CURRENT_DATE}}
+- Meeting date: {{CURRENT_DATE}}
 
 ## Attendance
 
-* Team members:
-* Others:
+- Team members:
+- Others:
 
 ## Meeting roles
 
-* Minutes, driver:
+- Minutes, driver:
 
 ## Proposed meetings
 
