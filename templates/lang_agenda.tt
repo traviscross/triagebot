@@ -4,6 +4,7 @@
 ---
 title: Triage meeting {{CURRENT_DATE}}
 tags: T-lang, triage-meeting, minutes
+date: {{CURRENT_DATE}}
 ---
 
 # T-lang meeting agenda

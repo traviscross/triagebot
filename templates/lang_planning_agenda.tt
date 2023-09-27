@@ -3,6 +3,7 @@
 ---
 title: Planning meeting {{CURRENT_DATE}}
 tags: T-lang, planning-meeting, minutes
+date: {{CURRENT_DATE}}
 ---
 
 # T-lang planning meeting agenda
