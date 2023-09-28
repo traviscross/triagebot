@@ -1,0 +1,68 @@
+{% import "_issues.tt" as issues %}
+{% import "_issues_fcps.tt" as issues_fcps %}
+{% import "_issues_heading.tt" as issues_heading %}
+{% import "_issues_meetings.tt" as issues_meetings %}
+---
+title: T-style triage meeting {{CURRENT_DATE}}
+tags: T-style, triage-meeting, minutes
+date: {{CURRENT_DATE}}
+---
+
+# T-style meeting agenda
+
+- Meeting date: {{CURRENT_DATE}}
+
+## Attendance
+
+- Team members:
+- Others:
+
+## Meeting roles
+
+- Facilitator:
+- Minutes:
+
+## Check-in
+
+(Not minuted.)
+
+## Scheduled design meetings
+{{issues_meetings::render(issues=scheduled_design_meetings)}}
+
+Update these [here](https://github.com/orgs/rust-lang/projects/38/views/1).
+
+## Proposed design meetings
+{{issues_meetings::render(issues=proposed_design_meetings)}}
+
+Update these [here](https://github.com/orgs/rust-lang/projects/38/views/1).
+
+## Announcements or custom items
+
+(Meeting attendees, feel free to add items here!)
+
+## Nominated RFCs, PRs, and issues
+{{issues_heading::render(issues=nominated)-}}
+
+## Pending PRs on the style-team repo
+{{issues_heading::render(issues=pending_team_prs)-}}
+
+## RFCs waiting to be merged
+{{issues_heading::render(issues=rfcs_waiting_to_be_merged)-}}
+
+## `S-waiting-on-team`
+{{issues_heading::render(issues=waiting_on_team)-}}
+
+## Proposed FCPs
+
+**Check your boxes!**
+{{issues_fcps::render(issues=proposed_fcp)-}}
+
+## Active FCPs
+{{issues_heading::render(issues=in_fcp)-}}
+
+## P-critical issues
+{{issues_heading::render(issues=p_critical)-}}
+
+## Check-out
+
+(Not minuted.)

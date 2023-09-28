@@ -600,6 +600,123 @@ pub fn lang_planning<'a>() -> Box<dyn Action + Send + Sync> {
     })
 }
 
+pub fn style_triage<'a>() -> Box<dyn Action + Send + Sync> {
+    Box::new(Step {
+        name: "style_triage_agenda",
+        actions: vec![
+            Query {
+                repos: vec![("rust-lang", "style-team")],
+                queries: vec![
+                    QueryMap {
+                        name: "pending_team_prs",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open"), ("is", "pull-request")],
+                            include_labels: vec![],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
+                        name: "scheduled_design_meetings",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::DesignMeetings {
+                            project_number: 38,
+                            with_status: github::DesignMeetingStatus::Scheduled,
+                        }),
+                    },
+                    QueryMap {
+                        name: "proposed_design_meetings",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::DesignMeetings {
+                            project_number: 38,
+                            with_status: github::DesignMeetingStatus::Proposed,
+                        }),
+                    },
+                ],
+            },
+            Query {
+                repos: vec![("rust-lang", "rfcs")],
+                queries: vec![QueryMap {
+                    name: "rfcs_waiting_to_be_merged",
+                    kind: QueryKind::List,
+                    query: Arc::new(github::Query {
+                        filters: vec![("state", "open"), ("is", "pr")],
+                        include_labels: vec![
+                            "disposition-merge",
+                            "finished-final-comment-period",
+                            "T-style",
+                        ],
+                        exclude_labels: vec![],
+                    }),
+                }],
+            },
+            Query {
+                repos: vec![
+                    ("rust-lang", "rfcs"),
+                    ("rust-lang", "rust"),
+                    ("rust-lang", "style-team"),
+                ],
+                queries: vec![
+                    QueryMap {
+                        name: "p_critical",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["T-style", "P-critical"],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
+                        name: "nominated",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["I-style-nominated"],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
+                        name: "waiting_on_team",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["T-style", "S-waiting-on-team"],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
+                        name: "proposed_fcp",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["T-style", "proposed-final-comment-period"],
+                            exclude_labels: vec!["finished-final-comment-period"],
+                        }),
+                    },
+                    QueryMap {
+                        name: "in_fcp",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["T-style", "final-comment-period"],
+                            exclude_labels: vec!["finished-final-comment-period"],
+                        }),
+                    },
+                    QueryMap {
+                        name: "finished_fcp",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["T-style", "finished-final-comment-period"],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                ],
+            },
+        ],
+    })
+}
+
 // Things to add (maybe):
 // - Compiler RFCs
 // - P-high issues
