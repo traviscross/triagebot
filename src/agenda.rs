@@ -458,6 +458,7 @@ pub fn lang<'a>() -> Box<dyn Action + Send + Sync> {
                         name: "scheduled_meetings",
                         kind: QueryKind::List,
                         query: Arc::new(github::DesignMeetings {
+                            project_number: 31,
                             with_status: github::DesignMeetingStatus::Scheduled,
                         }),
                     },
@@ -577,6 +578,7 @@ pub fn lang_planning<'a>() -> Box<dyn Action + Send + Sync> {
                         name: "proposed_meetings",
                         kind: QueryKind::List,
                         query: Arc::new(github::DesignMeetings {
+                            project_number: 31,
                             with_status: github::DesignMeetingStatus::Proposed,
                         }),
                     },

@@ -2260,14 +2260,14 @@ impl IssuesQuery for LeastRecentlyReviewedPullRequests {
 
 async fn project_items_by_status(
     client: &GithubClient,
+    project_number: i32,
     status_filter: impl Fn(Option<&str>) -> bool,
 ) -> anyhow::Result<Vec<github_graphql::project_items::ProjectV2Item>> {
     use cynic::QueryBuilder;
     use github_graphql::project_items;
 
-    const DESIGN_MEETING_PROJECT: i32 = 31;
     let mut args = project_items::Arguments {
-        project_number: DESIGN_MEETING_PROJECT,
+        project_number,
         after: None,
     };
 
@@ -2327,6 +2327,7 @@ impl DesignMeetingStatus {
 }
 
 pub struct DesignMeetings {
+    pub project_number: i32,
     pub with_status: DesignMeetingStatus,
 }
 
@@ -2340,9 +2341,10 @@ impl IssuesQuery for DesignMeetings {
     ) -> anyhow::Result<Vec<crate::actions::IssueDecorator>> {
         use github_graphql::project_items::ProjectV2ItemContent;
 
-        let items =
-            project_items_by_status(client, |status| status == self.with_status.query_str())
-                .await?;
+        let items = project_items_by_status(client, self.project_number, |status| {
+            status == self.with_status.query_str()
+        })
+        .await?;
         Ok(items
             .into_iter()
             .flat_map(|item| match item.content {
