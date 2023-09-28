@@ -52,6 +52,7 @@ pub struct IssueDecorator {
     pub updated_at_hts: String,
 
     pub fcp_details: Option<FCPDetails>,
+    pub meeting_details: Option<MeetingDetails>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -60,6 +61,11 @@ pub struct FCPDetails {
     pub bot_tracking_comment_content: String,
     pub initiating_comment_html_url: String,
     pub initiating_comment_content: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct MeetingDetails {
+    pub date: Option<String>,
 }
 
 lazy_static! {

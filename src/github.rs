@@ -1645,6 +1645,7 @@ impl<'q> IssuesQuery for Query<'q> {
                     .join(", "),
                 updated_at_hts: crate::actions::to_human(issue.updated_at),
                 fcp_details,
+                meeting_details: None,
             });
         }
 
@@ -2249,6 +2250,7 @@ impl IssuesQuery for LeastRecentlyReviewedPullRequests {
                         assignees,
                         updated_at_hts,
                         fcp_details: None,
+                        meeting_details: None,
                     }
                 },
             )
@@ -2339,7 +2341,9 @@ impl IssuesQuery for DesignMeetings {
         _include_fcp_details: bool,
         client: &'a GithubClient,
     ) -> anyhow::Result<Vec<crate::actions::IssueDecorator>> {
-        use github_graphql::project_items::ProjectV2ItemContent;
+        use github_graphql::project_items::{
+            ProjectV2ItemContent, ProjectV2ItemFieldDateValue, ProjectV2ItemFieldValue,
+        };
 
         let items = project_items_by_status(client, self.project_number, |status| {
             status == self.with_status.query_str()
@@ -2347,17 +2351,27 @@ impl IssuesQuery for DesignMeetings {
         .await?;
         Ok(items
             .into_iter()
-            .flat_map(|item| match item.content {
-                Some(ProjectV2ItemContent::Issue(issue)) => Some(crate::actions::IssueDecorator {
-                    assignees: String::new(),
-                    number: issue.number.try_into().unwrap(),
-                    fcp_details: None,
-                    html_url: issue.url.0,
-                    title: issue.title,
-                    repo_name: String::new(),
-                    labels: String::new(),
-                    updated_at_hts: String::new(),
-                }),
+            .flat_map(|item| match (item.content, item.date) {
+                (Some(ProjectV2ItemContent::Issue(issue)), date) => {
+                    Some(crate::actions::IssueDecorator {
+                        assignees: String::new(),
+                        number: issue.number.try_into().unwrap(),
+                        fcp_details: None,
+                        meeting_details: Some(crate::actions::MeetingDetails {
+                            date: match date {
+                                Some(ProjectV2ItemFieldValue::ProjectV2ItemFieldDateValue(
+                                    ProjectV2ItemFieldDateValue { date: Some(date) },
+                                )) => Some(date.format("%Y-%m-%d").to_string()),
+                                _ => None,
+                            },
+                        }),
+                        html_url: issue.url.0,
+                        title: issue.title,
+                        repo_name: String::new(),
+                        labels: String::new(),
+                        updated_at_hts: String::new(),
+                    })
+                }
                 _ => None,
             })
             .collect())

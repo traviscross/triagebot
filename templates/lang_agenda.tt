@@ -1,5 +1,6 @@
 {% import "_issues_heading.tt" as issues_heading %}
 {% import "_issues_fcps.tt" as issues_fcps %}
+{% import "_issues_meetings.tt" as issues_meetings %}
 {% import "_issues.tt" as issues %}
 ---
 title: Triage meeting {{CURRENT_DATE}}
@@ -21,7 +22,7 @@ date: {{CURRENT_DATE}}
 - Minutes, driver:
 
 ## Scheduled meetings
-{{issues::render(issues=scheduled_meetings, indent="", empty="No pending proposals this time.")}}
+{{issues_meetings::render(issues=scheduled_meetings)}}
 
 Edit the schedule here: https://github.com/orgs/rust-lang/projects/31/views/7.
 

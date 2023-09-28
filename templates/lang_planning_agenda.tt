@@ -1,4 +1,5 @@
 {% import "_issues_heading.tt" as issues_heading %}
+{% import "_issues_meetings.tt" as issues_meetings %}
 {% import "_issues.tt" as issues %}
 ---
 title: Planning meeting {{CURRENT_DATE}}
@@ -20,7 +21,7 @@ date: {{CURRENT_DATE}}
 - Minutes, driver:
 
 ## Proposed meetings
-{{issues::render(issues=proposed_meetings, indent="", empty="None.")}}
+{{issues_meetings::render(issues=proposed_meetings)}}
 
 Please update these in https://github.com/orgs/rust-lang/projects/31/views/7.
 
