@@ -5,10 +5,7 @@
 {{heading}} "{{issue.title}}" {{issue.repo_name}}#{{issue.number}}
 
 - **Link:** {{issue.html_url}}
-
 {%else%}
-
 None.
-
 {%endfor%}
 {% endmacro %}
