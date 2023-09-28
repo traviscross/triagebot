@@ -1050,6 +1050,10 @@ impl Repository {
         let is_pr = filters
             .iter()
             .any(|&(key, value)| key == "is" && value == "pull-request");
+        // `is: issue` indicates the query to retrieve issues only
+        let is_issue = filters
+            .iter()
+            .any(|&(key, value)| key == "is" && value == "issue");
 
         // There are some cases that can only be handled by the search API:
         // 1. When using negating label filters (exclude_labels)
@@ -1060,7 +1064,8 @@ impl Repository {
         // for more information
         let use_search_api = !exclude_labels.is_empty()
             || filters.iter().any(|&(key, _)| key == "no")
-            || is_pr && !include_labels.is_empty();
+            || is_pr && !include_labels.is_empty()
+            || is_issue && !include_labels.is_empty();
 
         // If there are more than `per_page` of issues, we need to paginate
         let mut issues = vec![];
@@ -1103,7 +1108,7 @@ impl Repository {
         include_labels: &Vec<&str>,
         ordering: Ordering<'_>,
     ) -> String {
-        self.build_endpoint_url("issues", filters, include_labels, ordering)
+        dbg!(self.build_endpoint_url("issues", filters, include_labels, ordering))
     }
 
     fn build_pulls_url(
@@ -1112,7 +1117,7 @@ impl Repository {
         include_labels: &Vec<&str>,
         ordering: Ordering<'_>,
     ) -> String {
-        self.build_endpoint_url("pulls", filters, include_labels, ordering)
+        dbg!(self.build_endpoint_url("pulls", filters, include_labels, ordering))
     }
 
     fn build_endpoint_url(
@@ -1137,13 +1142,13 @@ impl Repository {
             .chain(std::iter::once(format!("per_page={}", ordering.per_page,)))
             .collect::<Vec<_>>()
             .join("&");
-        format!(
+        dbg!(format!(
             "{}/repos/{}/{}?{}",
             Repository::GITHUB_API_URL,
             self.full_name,
             endpoint,
             filters
-        )
+        ))
     }
 
     fn build_search_issues_url(
@@ -1170,7 +1175,7 @@ impl Repository {
             .chain(std::iter::once(format!("repo:{}", self.full_name)))
             .collect::<Vec<_>>()
             .join("+");
-        format!(
+        dbg!(format!(
             "{}/search/issues?q={}&sort={}&order={}&per_page={}&page={}",
             Repository::GITHUB_API_URL,
             filters,
@@ -1178,7 +1183,7 @@ impl Repository {
             ordering.direction,
             ordering.per_page,
             ordering.page,
-        )
+        ))
     }
 
     /// Retrieves a git commit for the given SHA.
@@ -2372,6 +2377,42 @@ impl IssuesQuery for DesignMeetings {
                         updated_at_hts: String::new(),
                     })
                 }
+                _ => None,
+            })
+            .collect())
+    }
+}
+
+pub struct ProjectBoard {
+    pub project_number: i32,
+    pub with_status: Box<dyn (Fn(Option<&str>) -> bool) + Send + Sync>,
+}
+
+#[async_trait]
+impl IssuesQuery for ProjectBoard {
+    async fn query<'a>(
+        &'a self,
+        _repo: &'a Repository,
+        _include_fcp_details: bool,
+        client: &'a GithubClient,
+    ) -> anyhow::Result<Vec<crate::actions::IssueDecorator>> {
+        use github_graphql::project_items::ProjectV2ItemContent;
+
+        let items = project_items_by_status(client, self.project_number, &self.with_status).await?;
+        Ok(items
+            .into_iter()
+            .flat_map(|item| match item.content {
+                Some(ProjectV2ItemContent::Issue(issue)) => Some(crate::actions::IssueDecorator {
+                    assignees: String::new(),
+                    number: issue.number.try_into().unwrap(),
+                    fcp_details: None,
+                    meeting_details: None,
+                    html_url: issue.url.0,
+                    title: issue.title,
+                    repo_name: String::new(),
+                    labels: String::new(),
+                    updated_at_hts: String::new(),
+                }),
                 _ => None,
             })
             .collect())

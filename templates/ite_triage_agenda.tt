@@ -1,0 +1,31 @@
+{% import "_issues_heading_with_labels.tt" as issues_heading %}
+---
+title: ITE meeting {{CURRENT_DATE}}
+tags: impl-trait-everywhere, triage-meeting, minutes
+date: {{CURRENT_DATE}}
+---
+
+# ITE meeting agenda
+
+- Meeting date: {{CURRENT_DATE}}
+
+## Attendance
+
+- People:
+
+## Meeting roles
+
+- Minutes:
+
+## Announcements or custom items
+
+(Meeting attendees, feel free to add items here!)
+
+## Project board issues
+{{issues_heading::render(issues=project_board_issues)}}
+## Pending PRs on the impl-trait-initiative repo
+{{issues_heading::render(issues=pending_team_prs)}}
+## Open PRs
+{{issues_heading::render(issues=open_prs)}}
+## Open issues
+{{issues_heading::render(issues=open_issues)}}

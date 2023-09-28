@@ -1,0 +1,12 @@
+{% macro render(issues, heading="###", empty="None.") %}
+{%- for issue in issues %}
+{{heading}} "{{issue.title}}" {{issue.repo_name}}#{{issue.number}}
+
+- **Link:** {{issue.html_url}}
+{% if issue.labels -%}
+- **Labels:** {{issue.labels}}
+{% endif -%}
+{%- else -%}
+{{empty}}
+{% endfor -%}
+{% endmacro %}

@@ -717,6 +717,73 @@ pub fn style_triage<'a>() -> Box<dyn Action + Send + Sync> {
     })
 }
 
+pub fn ite_triage<'a>() -> Box<dyn Action + Send + Sync> {
+    const TEAM_LABELS: &str = "\
+         A-impl-trait,\
+         F-async_fn_in_trait,\
+         F-return_position_impl_trait_in_trait,\
+         F-return_type_notation,\
+         F-type_alias_impl_trait";
+    Box::new(Step {
+        name: "ite_triage_agenda",
+        actions: vec![
+            Query {
+                repos: vec![("rust-lang", "impl-trait-initiative")],
+                queries: vec![
+                    QueryMap {
+                        name: "pending_team_prs",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open"), ("is", "pull-request")],
+                            include_labels: vec![],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
+                        name: "project_board_issues",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::ProjectBoard {
+                            project_number: 34,
+                            with_status: Box::new(|status| match status {
+                                Some(status) => status != "Done",
+                                None => false,
+                            }),
+                        }),
+                    },
+                ],
+            },
+            Query {
+                repos: vec![
+                    ("rust-lang", "rfcs"),
+                    ("rust-lang", "rust"),
+                    ("rust-lang", "reference"),
+                    ("rust-lang", "impl-trait-initiative"),
+                ],
+                queries: vec![
+                    QueryMap {
+                        name: "open_prs",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open"), ("is", "pull-request")],
+                            include_labels: vec![TEAM_LABELS],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
+                        name: "open_issues",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open"), ("is", "issue")],
+                            include_labels: vec![TEAM_LABELS],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                ],
+            },
+        ],
+    })
+}
+
 // Things to add (maybe):
 // - Compiler RFCs
 // - P-high issues
