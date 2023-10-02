@@ -717,6 +717,102 @@ pub fn style_triage<'a>() -> Box<dyn Action + Send + Sync> {
     })
 }
 
+pub fn async_triage<'a>() -> Box<dyn Action + Send + Sync> {
+    Box::new(Step {
+        name: "async_triage_agenda",
+        actions: vec![
+            Query {
+                repos: vec![("rust-lang", "wg-async")],
+                queries: vec![QueryMap {
+                    name: "pending_team_prs",
+                    kind: QueryKind::List,
+                    query: Arc::new(github::Query {
+                        filters: vec![("state", "open"), ("is", "pull-request")],
+                        include_labels: vec![],
+                        exclude_labels: vec![],
+                    }),
+                }],
+            },
+            Query {
+                repos: vec![
+                    ("rust-lang", "rfcs"),
+                    ("rust-lang", "rust"),
+                    ("rust-lang", "wg-async"),
+                ],
+                queries: vec![
+                    QueryMap {
+                        name: "p_critical",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["WG-async,A-async-await", "P-critical"],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
+                        name: "nominated",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["I-async-nominated"],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
+                        name: "nominated_for_others",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![
+                                ("state", "open"),
+                                ("label", "A-async-await,WG-async"),
+                                ("label", "I-lang-nominated,I-types-nominated"),
+                            ],
+                            include_labels: vec![],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
+                        name: "waiting_on_team",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["WG-async", "S-waiting-on-team"],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
+                        name: "proposed_fcp",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["WG-async", "proposed-final-comment-period"],
+                            exclude_labels: vec!["finished-final-comment-period"],
+                        }),
+                    },
+                    QueryMap {
+                        name: "in_fcp",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["WG-async", "final-comment-period"],
+                            exclude_labels: vec!["finished-final-comment-period"],
+                        }),
+                    },
+                    QueryMap {
+                        name: "finished_fcp",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["WG-async", "finished-final-comment-period"],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                ],
+            },
+        ],
+    })
+}
+
 pub fn ite_triage<'a>() -> Box<dyn Action + Send + Sync> {
     const TEAM_LABELS: &str = "\
          A-impl-trait,\

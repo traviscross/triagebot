@@ -1057,13 +1057,15 @@ impl Repository {
 
         // There are some cases that can only be handled by the search API:
         // 1. When using negating label filters (exclude_labels)
-        // 2. When there's a key parameter key=no
-        // 3. When the query is to retrieve PRs only and there are label filters
+        // 2. When a label is provided as a filter
+        // 3. When there's a key parameter key=no
+        // 4. When the query is to retrieve PRs only and there are label filters
         //
         // Check https://docs.github.com/en/rest/reference/search#search-issues-and-pull-requests
         // for more information
         let use_search_api = !exclude_labels.is_empty()
             || filters.iter().any(|&(key, _)| key == "no")
+            || filters.iter().any(|&(key, _)| key == "label")
             || is_pr && !include_labels.is_empty()
             || is_issue && !include_labels.is_empty();
 

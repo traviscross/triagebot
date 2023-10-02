@@ -1,0 +1,42 @@
+{% import "_issues.tt" as issues %}
+{% import "_issues_fcps.tt" as issues_fcps %}
+{% import "_issues_heading.tt" as issues_heading %}
+{% import "_issues_meetings.tt" as issues_meetings %}
+---
+title: WG-async triage meeting {{CURRENT_DATE}}
+tags: WG-async, triage-meeting, minutes
+date: {{CURRENT_DATE}}
+---
+
+# WG-async meeting agenda
+
+- Meeting date: {{CURRENT_DATE}}
+
+## Attendance
+
+- People:
+
+## Meeting roles
+
+- Minutes:
+
+## Announcements or custom items
+
+(Meeting attendees, feel free to add items here!)
+
+## Nominated RFCs, PRs, and issues
+{{issues_heading::render(issues=nominated)}}
+## WG RFCs, PRs, and issues nominated for T-lang/T-types
+{{issues_heading::render(issues=nominated_for_others)}}
+## Pending PRs on the WG-async repo
+{{issues_heading::render(issues=pending_team_prs)}}
+## `S-waiting-on-team`
+{{issues_heading::render(issues=waiting_on_team)}}
+## Proposed FCPs
+
+**Check your boxes!**
+{{issues_fcps::render(issues=proposed_fcp)}}
+## Active FCPs
+{{issues_heading::render(issues=in_fcp)}}
+## P-critical issues
+{{issues_heading::render(issues=p_critical)}}
