@@ -20,6 +20,16 @@ date: {{CURRENT_DATE}}
 
 - Minutes:
 
+## Scheduled meetings
+{{issues_meetings::render(issues=scheduled_meetings)}}
+
+Update these [here](https://github.com/orgs/rust-lang/projects/40/views/1).
+
+## Proposed meetings
+{{issues_meetings::render(issues=proposed_meetings)}}
+
+Update these [here](https://github.com/orgs/rust-lang/projects/40/views/1).
+
 ## Announcements or custom items
 
 (Meeting attendees, feel free to add items here!)

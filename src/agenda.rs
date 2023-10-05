@@ -723,15 +723,33 @@ pub fn async_triage<'a>() -> Box<dyn Action + Send + Sync> {
         actions: vec![
             Query {
                 repos: vec![("rust-lang", "wg-async")],
-                queries: vec![QueryMap {
-                    name: "pending_team_prs",
-                    kind: QueryKind::List,
-                    query: Arc::new(github::Query {
-                        filters: vec![("state", "open"), ("is", "pull-request")],
-                        include_labels: vec![],
-                        exclude_labels: vec![],
-                    }),
-                }],
+                queries: vec![
+                    QueryMap {
+                        name: "pending_team_prs",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open"), ("is", "pull-request")],
+                            include_labels: vec![],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
+                        name: "scheduled_meetings",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::DesignMeetings {
+                            project_number: 40,
+                            with_status: github::DesignMeetingStatus::Scheduled,
+                        }),
+                    },
+                    QueryMap {
+                        name: "proposed_meetings",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::DesignMeetings {
+                            project_number: 40,
+                            with_status: github::DesignMeetingStatus::Proposed,
+                        }),
+                    },
+                ],
             },
             Query {
                 repos: vec![
