@@ -873,26 +873,15 @@ pub fn ite_triage<'a>() -> Box<dyn Action + Send + Sync> {
                     ("rust-lang", "reference"),
                     ("rust-lang", "impl-trait-initiative"),
                 ],
-                queries: vec![
-                    QueryMap {
-                        name: "open_prs",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open"), ("is", "pull-request")],
-                            include_labels: vec![TEAM_LABELS],
-                            exclude_labels: vec![],
-                        }),
-                    },
-                    QueryMap {
-                        name: "open_issues",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open"), ("is", "issue")],
-                            include_labels: vec![TEAM_LABELS],
-                            exclude_labels: vec![],
-                        }),
-                    },
-                ],
+                queries: vec![QueryMap {
+                    name: "open_prs",
+                    kind: QueryKind::List,
+                    query: Arc::new(github::Query {
+                        filters: vec![("state", "open"), ("is", "pull-request")],
+                        include_labels: vec![TEAM_LABELS],
+                        exclude_labels: vec![],
+                    }),
+                }],
             },
         ],
     })

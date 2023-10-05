@@ -27,5 +27,3 @@ date: {{CURRENT_DATE}}
 {{issues_heading::render(issues=pending_team_prs)}}
 ## Open PRs
 {{issues_heading::render(issues=open_prs)}}
-## Open issues
-{{issues_heading::render(issues=open_issues)}}
