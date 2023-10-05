@@ -860,7 +860,7 @@ pub fn ite_triage<'a>() -> Box<dyn Action + Send + Sync> {
                             project_number: 34,
                             with_status: Box::new(|status| match status {
                                 Some(status) => status != "Done",
-                                None => false,
+                                None => true,
                             }),
                         }),
                     },
