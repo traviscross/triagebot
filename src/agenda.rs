@@ -768,6 +768,15 @@ pub fn async_triage<'a>() -> Box<dyn Action + Send + Sync> {
                         }),
                     },
                     QueryMap {
+                        name: "untriaged",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["A-async-await"],
+                            exclude_labels: vec!["AsyncAwait-Triaged"],
+                        }),
+                    },
+                    QueryMap {
                         name: "nominated",
                         kind: QueryKind::List,
                         query: Arc::new(github::Query {

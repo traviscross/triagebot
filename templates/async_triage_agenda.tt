@@ -36,6 +36,8 @@ Update these [here](https://github.com/orgs/rust-lang/projects/40/views/1).
 
 ## Nominated RFCs, PRs, and issues
 {{issues_heading::render(issues=nominated)}}
+## Untriaged issues
+{{issues_heading::render(issues=untriaged)}}
 ## WG RFCs, PRs, and issues nominated for T-lang/T-types
 {{issues_heading::render(issues=nominated_for_others)}}
 ## Pending PRs on the WG-async repo
