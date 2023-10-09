@@ -50,3 +50,6 @@ Update these [here](https://github.com/orgs/rust-lang/projects/40/views/1).
 {{issues_heading::render(issues=in_fcp)}}
 ## P-critical issues
 {{issues_heading::render(issues=p_critical)}}
+## WG-async work project board
+
+https://github.com/orgs/rust-lang/projects/29/views1/d
