@@ -21,8 +21,8 @@ date: {{CURRENT_DATE}}
 - Minutes, driver:
 
 ## Proposed meetings
-{{issues_meetings::render(issues=proposed_meetings)}}
 
+{{issues_meetings::render(issues=proposed_meetings)}}
 Please update these in https://github.com/orgs/rust-lang/projects/31/views/7.
 
 ## Active initiatives

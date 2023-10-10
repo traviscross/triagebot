@@ -22,8 +22,8 @@ date: {{CURRENT_DATE}}
 - Minutes, driver:
 
 ## Scheduled meetings
-{{issues_meetings::render(issues=scheduled_meetings)}}
 
+{{issues_meetings::render(issues=scheduled_meetings)}}
 Edit the schedule here: https://github.com/orgs/rust-lang/projects/31/views/7.
 
 ## Announcements or custom items

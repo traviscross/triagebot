@@ -27,13 +27,13 @@ date: {{CURRENT_DATE}}
 (Not minuted.)
 
 ## Scheduled design meetings
-{{issues_meetings::render(issues=scheduled_design_meetings)}}
 
+{{issues_meetings::render(issues=scheduled_design_meetings)}}
 Update these [here](https://github.com/orgs/rust-lang/projects/38/views/1).
 
 ## Proposed design meetings
-{{issues_meetings::render(issues=proposed_design_meetings)}}
 
+{{issues_meetings::render(issues=proposed_design_meetings)}}
 Update these [here](https://github.com/orgs/rust-lang/projects/38/views/1).
 
 ## Announcements or custom items
