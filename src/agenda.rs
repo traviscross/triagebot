@@ -840,6 +840,13 @@ pub fn async_triage<'a>() -> Box<dyn Action + Send + Sync> {
     })
 }
 
+pub fn async_reading<'a>() -> Box<dyn Action + Send + Sync> {
+    Box::new(Step {
+        name: "async_reading_club",
+        actions: vec![],
+    })
+}
+
 pub fn ite_triage<'a>() -> Box<dyn Action + Send + Sync> {
     const TEAM_LABELS: &str = "\
          A-impl-trait,\

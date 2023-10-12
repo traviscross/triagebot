@@ -8,6 +8,11 @@ async fn main() -> anyhow::Result<()> {
     let args: Vec<String> = std::env::args().collect();
     if args.len() == 2 {
         match &args[1][..] {
+            "reading" => {
+                let agenda = agenda::async_reading();
+                print!("{}", agenda.call().await?);
+                return Ok(());
+            }
             "triage" => {
                 let agenda = agenda::async_triage();
                 print!("{}", agenda.call().await?);
