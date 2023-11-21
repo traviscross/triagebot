@@ -1,7 +1,7 @@
 {% import "_issues_heading_with_labels.tt" as issues_heading %}
 ---
 title: ITE meeting {{CURRENT_DATE}}
-tags: impl-trait-everywhere, triage-meeting, minutes
+tags: ["impl-trait-everywhere", "triage-meeting", "minutes"]
 date: {{CURRENT_DATE}}
 ---
 

@@ -4,7 +4,7 @@
 {% import "_issues_meetings.tt" as issues_meetings %}
 ---
 title: T-style triage meeting {{CURRENT_DATE}}
-tags: T-style, triage-meeting, minutes
+tags: ["T-style", "triage-meeting", "minutes"]
 date: {{CURRENT_DATE}}
 ---
 

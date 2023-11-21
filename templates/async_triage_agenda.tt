@@ -4,7 +4,7 @@
 {% import "_issues_meetings.tt" as issues_meetings %}
 ---
 title: WG-async triage meeting {{CURRENT_DATE}}
-tags: WG-async, triage-meeting, minutes
+tags: ["WG-async", "triage-meeting", "minutes"]
 date: {{CURRENT_DATE}}
 ---
 

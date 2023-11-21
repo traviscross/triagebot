@@ -3,7 +3,7 @@
 {% import "_issues.tt" as issues %}
 ---
 title: Planning meeting {{CURRENT_DATE}}
-tags: T-lang, planning-meeting, minutes
+tags: ["T-lang", "planning-meeting", "minutes"]
 date: {{CURRENT_DATE}}
 ---
 
