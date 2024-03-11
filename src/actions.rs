@@ -131,7 +131,13 @@ impl<'a> Action for Step<'a> {
                     handles.push(tokio::task::spawn(async move {
                         let _permit = semaphore.acquire().await?;
                         let issues = query
-                            .query(&repository, name == "proposed_fcp", &gh)
+                            // FIXME: The second argument here
+                            // indicates whether to populate FCP
+                            // details.  We have this entirely
+                            // disabled because, due to other
+                            // problems, we're not rendering these
+                            // details anyway.
+                            .query(&repository, false, &gh)
                             .await?;
                         Ok((name, kind, issues))
                     }));
