@@ -8,8 +8,13 @@ async fn main() -> anyhow::Result<()> {
     let args: Vec<String> = std::env::args().collect();
     if args.len() == 2 {
         match &args[1][..] {
-            "agenda" => {
+            "agenda" | "triage" => {
                 let agenda = agenda::lang();
+                print!("{}", agenda.call().await?);
+                return Ok(());
+            }
+            "design" => {
+                let agenda = agenda::lang_design();
                 print!("{}", agenda.call().await?);
                 return Ok(());
             }
@@ -22,7 +27,7 @@ async fn main() -> anyhow::Result<()> {
         }
     }
 
-    eprintln!("Usage: lang (agenda|planning)");
+    eprintln!("Usage: lang (triage|design|planning)");
 
     Ok(())
 }

@@ -1,11 +1,10 @@
 {% macro render(issues, empty="None.") -%}
 {% for issue in issues -%}
-{% if issue.meeting_details.date -%}
+{% if issue.meeting_details.date %}
 - {{issue.meeting_details.date}}: "{{issue.title}}" [{{issue.repo_name}}#{{issue.number}}]({{issue.html_url}})
-{% else -%}
+{%- else %}
 - "{{issue.title}}" [{{issue.repo_name}}#{{issue.number}}]({{issue.html_url}})
-{% endif -%}
-{% else -%}
-{{empty}}
-{% endfor -%}
+{%- endif %}
+{% else %}{{empty}}
+{% endfor %}
 {% endmacro %}

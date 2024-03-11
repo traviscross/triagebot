@@ -1,12 +1,11 @@
 {% import "_issue.tt" as issue %}
 
-{% macro render(issues, indent="", branch="", with_age=false, empty="None.") -%}
+{% macro render(issues, indent="", branch="", with_age=false, empty="None.") %}
 {% if branch -%}
 {% set branch = branch ~ " " -%}
 {% endif -%}
-{% for issue in issues -%}
+{% for issue in issues %}
 {{indent}}- {{ branch }}{{issue::render(issue=issue, with_age=with_age)}}
-{% else -%}
-{{indent}}{{empty}}
-{% endfor -%}
+{%- else %}{{indent}}{{empty}}
+{% endfor %}
 {% endmacro %}

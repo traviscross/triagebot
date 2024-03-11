@@ -1,0 +1,38 @@
+{% import "_issues_meetings.tt" as issues_meetings %}
+---
+title: WG-async planning meeting {{CURRENT_DATE}}
+tags: ["WG-async", "planning-meeting", "minutes"]
+date: {{CURRENT_DATE}}
+discussion:
+url:
+---
+
+# WG-async meeting agenda
+
+- Meeting date: {{CURRENT_DATE}}
+
+## Attendance
+
+- People:
+
+## Meeting roles
+
+- Minutes:
+
+## Scheduled meetings
+{{issues_meetings::render(issues=scheduled_meetings)}}
+
+Update these [here](https://github.com/orgs/rust-lang/projects/40/views/1).
+
+## Proposed meetings
+{{issues_meetings::render(issues=proposed_meetings)}}
+
+Update these [here](https://github.com/orgs/rust-lang/projects/40/views/1).
+
+## Availability
+
+*Fill in your availability for the available dates here.*
+
+## Proposed topics
+
+*Propose topics for design meetings here.*

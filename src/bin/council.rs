@@ -9,12 +9,7 @@ async fn main() -> anyhow::Result<()> {
     if args.len() == 2 {
         match &args[1][..] {
             "triage" => {
-                let agenda = agenda::ite_triage();
-                print!("{}", agenda.call().await?);
-                return Ok(());
-            }
-            "design" => {
-                let agenda = agenda::ite_design();
+                let agenda = agenda::council_triage();
                 print!("{}", agenda.call().await?);
                 return Ok(());
             }
@@ -22,7 +17,7 @@ async fn main() -> anyhow::Result<()> {
         }
     }
 
-    eprintln!("Usage: ite design|triage");
+    eprintln!("Usage: council triage");
 
     Ok(())
 }

@@ -1,0 +1,54 @@
+{% import "_issues_heading_with_labels.tt" as issues_heading %}
+---
+title: Council meeting {{CURRENT_DATE}}
+tags: ["council", "triage-meeting", "minutes"]
+date: {{CURRENT_DATE}}
+---
+
+# Council meeting agenda
+
+- Meeting date: {{CURRENT_DATE}}
+
+## Attendance
+
+- Council members:
+- Observers:
+
+## Meeting roles
+
+- Facilitator:
+- Minutes:
+
+## Check-in
+
+(Not minuted.)
+
+Turn on recording after the check-in.
+
+## Consent to agenda
+
+Do we have consensus to move forward with this agenda?
+
+## Announcements or custom items
+
+(Meeting attendees, feel free to add items here!)
+
+## Nominated issues
+{{issues_heading::render(issues=nominated_issues)}}
+## P-high issues
+{{issues_heading::render(issues=p_high_issues)}}
+## Issues that need a council decision
+{{issues_heading::render(issues=needs_decision_issues)}}
+## Active issues
+{{issues_heading::render(issues=active_issues)}}
+## Pending PRs on the leadership-council repo
+{{issues_heading::render(issues=pending_team_prs)}}
+## Call for clarifications
+
+Should any points discussed in the meeting be clarified?
+
+## Check-out
+
+Turn off recording prior to the check-out.
+
+(Not minuted.)

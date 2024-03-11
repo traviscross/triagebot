@@ -462,6 +462,17 @@ pub fn lang<'a>() -> Box<dyn Action + Send + Sync> {
                             with_status: github::DesignMeetingStatus::Scheduled,
                         }),
                     },
+                    QueryMap {
+                        name: "edition_priority_issues",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::ProjectBoard {
+                            project_number: 43,
+                            with_status: Box::new(|status| match status {
+                                Some(status) => status == "Priority",
+                                None => true,
+                            }),
+                        }),
+                    },
                 ],
             },
             Query {
@@ -597,6 +608,13 @@ pub fn lang_planning<'a>() -> Box<dyn Action + Send + Sync> {
                 }],
             },
         ],
+    })
+}
+
+pub fn lang_design<'a>() -> Box<dyn Action + Send + Sync> {
+    Box::new(Step {
+        name: "lang_design_doc",
+        actions: vec![],
     })
 }
 
@@ -756,6 +774,7 @@ pub fn async_triage<'a>() -> Box<dyn Action + Send + Sync> {
                     ("rust-lang", "rfcs"),
                     ("rust-lang", "rust"),
                     ("rust-lang", "wg-async"),
+                    ("rust-lang", "libs-team"),
                 ],
                 queries: vec![
                     QueryMap {
@@ -840,6 +859,40 @@ pub fn async_triage<'a>() -> Box<dyn Action + Send + Sync> {
     })
 }
 
+pub fn async_planning<'a>() -> Box<dyn Action + Send + Sync> {
+    Box::new(Step {
+        name: "async_planning_agenda",
+        actions: vec![Query {
+            repos: vec![("rust-lang", "wg-async")],
+            queries: vec![
+                QueryMap {
+                    name: "scheduled_meetings",
+                    kind: QueryKind::List,
+                    query: Arc::new(github::DesignMeetings {
+                        project_number: 40,
+                        with_status: github::DesignMeetingStatus::Scheduled,
+                    }),
+                },
+                QueryMap {
+                    name: "proposed_meetings",
+                    kind: QueryKind::List,
+                    query: Arc::new(github::DesignMeetings {
+                        project_number: 40,
+                        with_status: github::DesignMeetingStatus::Proposed,
+                    }),
+                },
+            ],
+        }],
+    })
+}
+
+pub fn async_design<'a>() -> Box<dyn Action + Send + Sync> {
+    Box::new(Step {
+        name: "async_design_doc",
+        actions: vec![],
+    })
+}
+
 pub fn async_reading<'a>() -> Box<dyn Action + Send + Sync> {
     Box::new(Step {
         name: "async_reading_club",
@@ -895,6 +948,82 @@ pub fn ite_triage<'a>() -> Box<dyn Action + Send + Sync> {
                     query: Arc::new(github::Query {
                         filters: vec![("state", "open"), ("is", "pull-request")],
                         include_labels: vec![TEAM_LABELS],
+                        exclude_labels: vec![],
+                    }),
+                }],
+            },
+        ],
+    })
+}
+
+pub fn ite_design<'a>() -> Box<dyn Action + Send + Sync> {
+    Box::new(Step {
+        name: "ite_design_doc",
+        actions: vec![],
+    })
+}
+
+pub fn council_triage<'a>() -> Box<dyn Action + Send + Sync> {
+    Box::new(Step {
+        name: "council_triage_agenda",
+        actions: vec![
+            Query {
+                repos: vec![("rust-lang", "leadership-council")],
+                queries: vec![
+                    QueryMap {
+                        name: "pending_team_prs",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open"), ("is", "pull-request")],
+                            include_labels: vec![],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
+                        name: "p_high_issues",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["P-high"],
+                            exclude_labels: vec!["I-council-nominated"],
+                        }),
+                    },
+                    QueryMap {
+                        name: "needs_decision_issues",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["S-needs-decision"],
+                            exclude_labels: vec!["I-council-nominated", "P-high"],
+                        }),
+                    },
+                    QueryMap {
+                        name: "active_issues",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["S-active"],
+                            exclude_labels: vec![
+                                "I-council-nominated",
+                                "S-needs-decision",
+                                "P-high",
+                            ],
+                        }),
+                    },
+                ],
+            },
+            Query {
+                repos: vec![
+                    ("rust-lang", "leadership-council"),
+                    ("rust-lang", "rfcs"),
+                    ("rust-lang", "rust"),
+                ],
+                queries: vec![QueryMap {
+                    name: "nominated_issues",
+                    kind: QueryKind::List,
+                    query: Arc::new(github::Query {
+                        filters: vec![("state", "open")],
+                        include_labels: vec!["I-council-nominated"],
                         exclude_labels: vec![],
                     }),
                 }],
