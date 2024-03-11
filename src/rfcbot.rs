@@ -27,7 +27,7 @@ pub struct Review {
 pub struct FCPIssue {
     pub id: u32,
     pub number: u32,
-    pub fk_milestone: Option<String>,
+    pub fk_milestone: Option<u32>,
     pub fk_user: u32,
     pub fk_assignee: Option<u32>,
     pub open: bool,
