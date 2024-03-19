@@ -50,6 +50,7 @@ pub struct IssueDecorator {
     pub assignees: String,
     // Human (readable) timestamp
     pub updated_at_hts: String,
+    pub narrative: Option<String>,
 
     pub fcp_details: Option<FCPDetails>,
     pub meeting_details: Option<MeetingDetails>,

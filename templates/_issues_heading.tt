@@ -3,6 +3,8 @@
 {{heading}} "{{issue.title}}" {{issue.repo_name}}#{{issue.number}}
 
 **Link:** {{issue.html_url}}
+{% if issue.narrative %}
+{{issue.narrative}}{% endif -%}
 {% else %}{{empty}}
 {% endfor %}
 {% endmacro %}

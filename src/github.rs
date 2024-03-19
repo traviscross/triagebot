@@ -1633,6 +1633,19 @@ impl<'q> IssuesQuery for Query<'q> {
             } else {
                 None
             };
+            let annotations_path = std::env::var("TRIAGEBOT_ANNOTATIONS_PATH").ok();
+            let narrative = if let Some(path) = annotations_path {
+                let path = std::path::PathBuf::from(path);
+                let repo = repo.name();
+                let num = issue.number;
+                let file = format!("rust-lang__{repo}__{num}.md");
+                let path = path.join(file);
+                dbg!(&path);
+                std::fs::read_to_string(path).ok()
+            } else {
+                None
+            };
+
             issues_decorator.push(crate::actions::IssueDecorator {
                 title: issue.title.clone(),
                 number: issue.number,
@@ -1651,6 +1664,7 @@ impl<'q> IssuesQuery for Query<'q> {
                     .collect::<Vec<_>>()
                     .join(", "),
                 updated_at_hts: crate::actions::to_human(issue.updated_at),
+                narrative,
                 fcp_details,
                 meeting_details: None,
             });
@@ -2256,6 +2270,7 @@ impl IssuesQuery for LeastRecentlyReviewedPullRequests {
                         labels,
                         assignees,
                         updated_at_hts,
+                        narrative: None,
                         fcp_details: None,
                         meeting_details: None,
                     }
@@ -2377,6 +2392,7 @@ impl IssuesQuery for DesignMeetings {
                         repo_name: String::new(),
                         labels: String::new(),
                         updated_at_hts: String::new(),
+                        narrative: None,
                     })
                 }
                 _ => None,
@@ -2414,6 +2430,7 @@ impl IssuesQuery for ProjectBoard {
                     repo_name: String::new(),
                     labels: String::new(),
                     updated_at_hts: String::new(),
+                    narrative: None,
                 }),
                 _ => None,
             })
