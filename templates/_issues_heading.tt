@@ -1,9 +1,9 @@
-{% macro render(issues, heading="###", empty="None.") %}
+{% macro render(issues, heading="###", empty="None.", show_narratives=false) %}
 {% for issue in issues %}
 {{heading}} "{{issue.title}}" {{issue.repo_name}}#{{issue.number}}
 
 **Link:** {{issue.html_url}}
-{% if issue.narrative %}
+{% if issue.narrative and show_narratives %}
 {{issue.narrative}}{% endif -%}
 {% else %}{{empty}}
 {% endfor %}

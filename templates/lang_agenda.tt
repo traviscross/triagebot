@@ -35,7 +35,7 @@ Edit the schedule here: https://github.com/orgs/rust-lang/projects/31/views/7.
 Project board: https://github.com/orgs/rust-lang/projects/43/views/5
 {{issues_heading::render(issues=edition_priority_issues)}}
 ## Nominated RFCs, PRs, and issues
-{{issues_heading::render(issues=nominated)}}
+{{issues_heading::render(issues=nominated, show_narratives=true)}}
 ## Action item review
 
 - [Action items list](https://hackmd.io/gstfhtXYTHa3Jv-P_2RK7A)
