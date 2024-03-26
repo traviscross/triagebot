@@ -5,6 +5,8 @@
 title: Planning meeting {{CURRENT_DATE}}
 tags: ["T-lang", "planning-meeting", "minutes"]
 date: {{CURRENT_DATE}}
+discussion:
+url:
 ---
 
 # T-lang planning meeting agenda

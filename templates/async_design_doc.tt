@@ -2,6 +2,8 @@
 title: "Design meeting {{CURRENT_DATE}}: Topic"
 tags: ["WG-async", "design-meeting", "minutes"]
 date: {{CURRENT_DATE}}
+discussion:
+url:
 ---
 
 ...Document goes here...

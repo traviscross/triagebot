@@ -6,6 +6,8 @@
 title: T-style triage meeting {{CURRENT_DATE}}
 tags: ["T-style", "triage-meeting", "minutes"]
 date: {{CURRENT_DATE}}
+discussion:
+url:
 ---
 
 # T-style meeting agenda

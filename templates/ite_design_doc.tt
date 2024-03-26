@@ -2,6 +2,8 @@
 title: "ITE design meeting {{CURRENT_DATE}}: Topic"
 tags: ["impl-trait-everywhere", "design-meeting", "minutes"]
 date: {{CURRENT_DATE}}
+discussion:
+url:
 ---
 
 ...Document goes here...

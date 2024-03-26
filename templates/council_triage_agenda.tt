@@ -3,6 +3,8 @@
 title: Council meeting {{CURRENT_DATE}}
 tags: ["council", "triage-meeting", "minutes"]
 date: {{CURRENT_DATE}}
+discussion:
+url:
 ---
 
 # Council meeting agenda
