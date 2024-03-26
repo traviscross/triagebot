@@ -4,5 +4,5 @@
 
 **Link:** {{issue.html_url}}
 {% else %}{{empty}}
-{% endfor %}
+{% endfor -%}
 {% endmacro %}
