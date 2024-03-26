@@ -51,6 +51,7 @@ pub struct IssueDecorator {
     // Human (readable) timestamp
     pub updated_at_hts: String,
     pub narrative: Option<String>,
+    pub drag: Option<u8>,
 
     pub fcp_details: Option<FCPDetails>,
     pub meeting_details: Option<MeetingDetails>,
@@ -168,6 +169,12 @@ impl<'a> Action for Step<'a> {
         for (name, issues) in &mut results {
             issues.sort_by(|a, b| match (&a.narrative, &b.narrative) {
                 (Some(_), Some(_)) => core::cmp::Ordering::Equal,
+                (Some(_), None) => core::cmp::Ordering::Less,
+                (None, Some(_)) => core::cmp::Ordering::Greater,
+                (None, None) => core::cmp::Ordering::Equal,
+            });
+            issues.sort_by(|a, b| match (a.drag, b.drag) {
+                (Some(a), Some(b)) => a.cmp(&b),
                 (Some(_), None) => core::cmp::Ordering::Less,
                 (None, Some(_)) => core::cmp::Ordering::Greater,
                 (None, None) => core::cmp::Ordering::Equal,

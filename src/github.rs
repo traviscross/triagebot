@@ -1575,6 +1575,30 @@ fn quote_reply(markdown: &str) -> String {
     }
 }
 
+#[derive(Debug, Default)]
+struct FrontMatter {
+    drag: Option<u8>,
+}
+
+fn parse_frontmatter(s: &str) -> (Option<FrontMatter>, &str) {
+    if &s[0..3] == "---" {
+        let Some((fms, s)) = s[4..].split_once("\n---\n") else {
+            return (None, s);
+        };
+        let mut fm = FrontMatter::default();
+        for line in fms.lines() {
+            match line.split_once(':') {
+                Some(("drag", v)) => fm.drag = v.trim().parse().ok(),
+                _ => unimplemented!(),
+            }
+        }
+        let start = s.find(|c: char| !c.is_ascii_whitespace()).unwrap_or(0);
+        (Some(fm), &s[start..])
+    } else {
+        (None, s)
+    }
+}
+
 #[async_trait]
 impl<'q> IssuesQuery for Query<'q> {
     async fn query<'a>(
@@ -1645,6 +1669,12 @@ impl<'q> IssuesQuery for Query<'q> {
             } else {
                 None
             };
+            let (drag, narrative) = if let Some(s) = narrative {
+                let (fm, s) = parse_frontmatter(&s);
+                (fm.and_then(|x| x.drag), Some(s.to_string()))
+            } else {
+                (None, None)
+            };
 
             issues_decorator.push(crate::actions::IssueDecorator {
                 title: issue.title.clone(),
@@ -1665,6 +1695,7 @@ impl<'q> IssuesQuery for Query<'q> {
                     .join(", "),
                 updated_at_hts: crate::actions::to_human(issue.updated_at),
                 narrative,
+                drag,
                 fcp_details,
                 meeting_details: None,
             });
@@ -2271,6 +2302,7 @@ impl IssuesQuery for LeastRecentlyReviewedPullRequests {
                         assignees,
                         updated_at_hts,
                         narrative: None,
+                        drag: None,
                         fcp_details: None,
                         meeting_details: None,
                     }
@@ -2393,6 +2425,7 @@ impl IssuesQuery for DesignMeetings {
                         labels: String::new(),
                         updated_at_hts: String::new(),
                         narrative: None,
+                        drag: None,
                     })
                 }
                 _ => None,
@@ -2431,6 +2464,7 @@ impl IssuesQuery for ProjectBoard {
                     labels: String::new(),
                     updated_at_hts: String::new(),
                     narrative: None,
+                    drag: None,
                 }),
                 _ => None,
             })
