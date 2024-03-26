@@ -5,6 +5,7 @@
 **Link:** {{issue.html_url}}
 {% if issue.narrative and show_narratives %}
 {{issue.narrative}}{% endif -%}
-{% else %}{{empty}}
-{% endfor %}
+{% else %}
+{{empty}}
+{% endfor -%}
 {% endmacro %}
