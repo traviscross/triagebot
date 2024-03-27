@@ -182,6 +182,27 @@ impl<'a> Action for Step<'a> {
             context.insert(name, issues);
         }
 
+        let annotations_path = std::env::var("TRIAGEBOT_ANNOTATIONS_PATH").ok();
+        if let Some(path) = annotations_path {
+            let path = std::path::PathBuf::from(path);
+            if let Some(announcements) = {
+                let file = format!("__announcements.md");
+                let path = path.join(file);
+                dbg!(&path);
+                std::fs::read_to_string(path).ok()
+            } {
+                context.insert("announcements", &announcements);
+            }
+            if let Some(edition_notes) = {
+                let file = format!("__edition.md");
+                let path = path.join(file);
+                dbg!(&path);
+                std::fs::read_to_string(path).ok()
+            } {
+                context.insert("edition_notes", &edition_notes);
+            }
+        }
+
         let date = chrono::Utc::today().format("%Y-%m-%d").to_string();
         context.insert("CURRENT_DATE", &date);
 

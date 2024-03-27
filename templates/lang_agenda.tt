@@ -31,9 +31,11 @@ Edit the schedule here: https://github.com/orgs/rust-lang/projects/31/views/7.
 
 (Meeting attendees, feel free to add items here!)
 
+{{announcements}}
 ## Rust 2024 review
 
 Project board: https://github.com/orgs/rust-lang/projects/43/views/5{{issues_heading::render(issues=edition_priority_issues)}}
+{{edition_notes}}
 ## Nominated RFCs, PRs, and issues{{issues_heading::render(issues=nominated, show_narratives=true)}}
 ## Action item review
 
