@@ -963,6 +963,43 @@ pub fn ite_design<'a>() -> Box<dyn Action + Send + Sync> {
     })
 }
 
+pub fn edition_triage<'a>() -> Box<dyn Action + Send + Sync> {
+    Box::new(Step {
+        name: "edition_triage_agenda",
+        actions: vec![
+            Query {
+                repos: vec![
+                    ("rust-lang", "rfcs"),
+                    ("rust-lang", "rust"),
+                    ("rust-lang", "reference"),
+                    ("rust-lang", "edition-guide"),
+                ],
+                queries: vec![QueryMap {
+                    name: "nominated",
+                    kind: QueryKind::List,
+                    query: Arc::new(github::Query {
+                        filters: vec![("state", "open")],
+                        include_labels: vec!["I-edition-nominated"],
+                        exclude_labels: vec![],
+                    }),
+                }],
+            },
+            Query {
+                repos: vec![("rust-lang", "rust")],
+                queries: vec![QueryMap {
+                    name: "tracking",
+                    kind: QueryKind::List,
+                    query: Arc::new(github::Query {
+                        filters: vec![("state", "open")],
+                        include_labels: vec!["A-edition-2024", "C-tracking-issue"],
+                        exclude_labels: vec![],
+                    }),
+                }],
+            },
+        ],
+    })
+}
+
 pub fn council_triage<'a>() -> Box<dyn Action + Send + Sync> {
     Box::new(Step {
         name: "council_triage_agenda",

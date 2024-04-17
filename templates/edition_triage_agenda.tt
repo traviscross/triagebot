@@ -1,0 +1,24 @@
+{% import "_issues_heading.tt" as issues_heading %}
+{% import "_issues.tt" as issues %}
+---
+title: Triage meeting {{CURRENT_DATE}}
+tags: ["edition", "triage-meeting", "minutes"]
+date: {{CURRENT_DATE}}
+discussion:
+url:
+---
+
+# Edition meeting agenda
+
+- Meeting date: {{CURRENT_DATE}}
+
+## Attendance
+
+- People:
+
+## Meeting roles
+
+- Minutes, driver:
+
+## Nominated RFCs, PRs, and issues{{issues_heading::render(issues=nominated)}}
+## Tracking{{issues_heading::render(issues=tracking)}}
