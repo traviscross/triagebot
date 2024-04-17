@@ -42,29 +42,15 @@ Update these [here](https://github.com/orgs/rust-lang/projects/38/views/1).
 
 (Meeting attendees, feel free to add items here!)
 
-## Nominated RFCs, PRs, and issues
-{{issues_heading::render(issues=nominated)-}}
-
-## Pending PRs on the style-team repo
-{{issues_heading::render(issues=pending_team_prs)-}}
-
-## RFCs waiting to be merged
-{{issues_heading::render(issues=rfcs_waiting_to_be_merged)-}}
-
-## `S-waiting-on-team`
-{{issues_heading::render(issues=waiting_on_team)-}}
-
+## Nominated RFCs, PRs, and issues{{issues_heading::render(issues=nominated)}}
+## Pending PRs on the style-team repo{{issues_heading::render(issues=pending_team_prs)}}
+## RFCs waiting to be merged{{issues_heading::render(issues=rfcs_waiting_to_be_merged)}}
+## `S-waiting-on-team`{{issues_heading::render(issues=waiting_on_team)}}
 ## Proposed FCPs
 
-**Check your boxes!**
-{{issues_fcps::render(issues=proposed_fcp)-}}
-
-## Active FCPs
-{{issues_heading::render(issues=in_fcp)-}}
-
-## P-critical issues
-{{issues_heading::render(issues=p_critical)-}}
-
+**Check your boxes!**{{issues_fcps::render(issues=proposed_fcp)}}
+## Active FCPs{{issues_heading::render(issues=in_fcp)}}
+## P-critical issues{{issues_heading::render(issues=p_critical)}}
 ## Check-out
 
 (Not minuted.)
