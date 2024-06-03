@@ -498,6 +498,7 @@ pub fn lang<'a>() -> Box<dyn Action + Send + Sync> {
                     ("rust-lang", "reference"),
                     ("rust-lang", "lang-team"),
                     ("rust-lang", "compiler-team"),
+                    ("rust-lang", "rust-project-goals"),
                 ],
                 queries: vec![
                     QueryMap {
