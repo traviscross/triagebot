@@ -22,3 +22,4 @@ url:
 
 ## Nominated RFCs, PRs, and issues{{issues_heading::render(issues=nominated)}}
 ## Tracking{{issues_heading::render(issues=tracking)}}
+## Issues{{issues_heading::render(issues=issues)}}

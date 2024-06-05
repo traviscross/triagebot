@@ -997,6 +997,18 @@ pub fn edition_triage<'a>() -> Box<dyn Action + Send + Sync> {
                     }),
                 }],
             },
+            Query {
+                repos: vec![("rust-lang", "rust")],
+                queries: vec![QueryMap {
+                    name: "issues",
+                    kind: QueryKind::List,
+                    query: Arc::new(github::Query {
+                        filters: vec![("state", "open"), ("is", "issue")],
+                        include_labels: vec!["A-edition-2024"],
+                        exclude_labels: vec!["C-tracking-issue", "T-style"],
+                    }),
+                }],
+            },
         ],
     })
 }
