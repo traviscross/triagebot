@@ -993,7 +993,7 @@ pub fn edition_triage<'a>() -> Box<dyn Action + Send + Sync> {
                     query: Arc::new(github::Query {
                         filters: vec![("state", "open")],
                         include_labels: vec!["A-edition-2024", "C-tracking-issue"],
-                        exclude_labels: vec![],
+                        exclude_labels: vec!["S-tracking-ready-to-stabilize", "T-style"],
                     }),
                 }],
             },
