@@ -7,5 +7,5 @@
 - **Labels:** {{issue.labels}}
 {% endif -%}
 {% else %}{{empty}}
-{% endfor %}
+{% endfor -%}
 {% endmacro %}

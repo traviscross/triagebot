@@ -35,16 +35,11 @@ Do we have consensus to move forward with this agenda?
 
 (Meeting attendees, feel free to add items here!)
 
-## Nominated issues
-{{issues_heading::render(issues=nominated_issues)}}
-## P-high issues
-{{issues_heading::render(issues=p_high_issues)}}
-## Issues that need a council decision
-{{issues_heading::render(issues=needs_decision_issues)}}
-## Active issues
-{{issues_heading::render(issues=active_issues)}}
-## Pending PRs on the leadership-council repo
-{{issues_heading::render(issues=pending_team_prs)}}
+## Nominated issues{{issues_heading::render(issues=nominated_issues)}}
+## P-high issues{{issues_heading::render(issues=p_high_issues)}}
+## Issues that need a council decision{{issues_heading::render(issues=needs_decision_issues)}}
+## Active issues{{issues_heading::render(issues=active_issues)}}
+## Pending PRs on the leadership-council repo{{issues_heading::render(issues=pending_team_prs)}}
 ## Call for clarifications
 
 Should any points discussed in the meeting be clarified?
