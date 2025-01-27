@@ -520,6 +520,15 @@ pub fn lang<'a>() -> Box<dyn Action + Send + Sync> {
                         }),
                     },
                     QueryMap {
+                        name: "radar",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["I-lang-radar"],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                    QueryMap {
                         name: "waiting_on_lang_team",
                         kind: QueryKind::List,
                         query: Arc::new(github::Query {
