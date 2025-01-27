@@ -631,6 +631,13 @@ pub fn lang_design<'a>() -> Box<dyn Action + Send + Sync> {
     })
 }
 
+pub fn rfl_triage<'a>() -> Box<dyn Action + Send + Sync> {
+    Box::new(Step {
+        name: "rfl_triage",
+        actions: vec![],
+    })
+}
+
 pub fn style_triage<'a>() -> Box<dyn Action + Send + Sync> {
     Box::new(Step {
         name: "style_triage_agenda",
