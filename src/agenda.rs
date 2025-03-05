@@ -573,7 +573,7 @@ pub fn lang<'a>() -> Box<dyn Action + Send + Sync> {
                     kind: QueryKind::List,
                     query: Arc::new(github::Query {
                         filters: vec![("state", "open")],
-                        include_labels: vec!["A-edition-2024", "C-tracking-issue", "T-lang"],
+                        include_labels: vec!["A-edition-2025", "C-tracking-issue", "T-lang"],
                         exclude_labels: vec!["S-tracking-ready-for-edition"],
                     }),
                 }],
