@@ -1676,6 +1676,29 @@ impl<'q> IssuesQuery for Query<'q> {
                 (None, None)
             };
 
+            let label_drag =
+                issue
+                    .labels
+                    .iter()
+                    .map(|x| x.name.as_str())
+                    .fold(None::<u8>, |a, x| match (a, x) {
+                        (Some(0..) | None, "P-lang-drag-0") => Some(0), // Critical
+                        (Some(1..) | None, "P-lang-drag-1") => Some(1), // Priority
+                        (Some(2..) | None, "P-lang-drag-2") => Some(2), // Normal
+                        (Some(3..) | None, "P-lang-drag-3") => Some(3), // Next
+                        (Some(4..) | None, "P-lang-drag-4") => Some(4), // Low
+                        _ => a,
+                    });
+            let drag = match label_drag {
+                None => drag,
+                Some(0) => Some(5),
+                Some(1) => Some(8),
+                Some(2) => Some(10),
+                Some(3) => Some(15),
+                Some(4) => Some(25),
+                Some(_) => unreachable!(),
+            };
+
             issues_decorator.push(crate::actions::IssueDecorator {
                 title: issue.title.clone(),
                 number: issue.number,
