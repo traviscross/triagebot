@@ -35,8 +35,8 @@ Edit the schedule here: https://github.com/orgs/rust-lang/projects/31/views/7.
 ## Rust 2025 review
 
 {{edition_notes}}{{issues_heading::render(issues=edition_tracking)}}
-## Nominated RFCs, PRs, and issues{{issues_heading::render(issues=nominated, show_narratives=true)}}
-## On radar RFCs, PRs, and issues{{issues_heading::render(issues=radar, show_narratives=true)}}
+## Nominated RFCs, PRs, and issues{{issues_heading::render(issues=nominated)}}
+## On radar RFCs, PRs, and issues{{issues_heading::render(issues=radar)}}
 ## Action item review
 
 - [Action items list](https://hackmd.io/gstfhtXYTHa3Jv-P_2RK7A)
