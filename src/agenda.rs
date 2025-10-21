@@ -437,24 +437,6 @@ pub fn lang<'a>() -> Box<dyn Action + Send + Sync> {
                 repos: vec![("rust-lang", "lang-team")],
                 queries: vec![
                     QueryMap {
-                        name: "pending_project_proposals",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open"), ("is", "issue")],
-                            include_labels: vec!["major-change"],
-                            exclude_labels: vec!["charter-needed", "proposed-final-comment-period"],
-                        }),
-                    },
-                    QueryMap {
-                        name: "pending_lang_team_prs",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open"), ("is", "pull-request")],
-                            include_labels: vec![],
-                            exclude_labels: vec![],
-                        }),
-                    },
-                    QueryMap {
                         name: "scheduled_meetings",
                         kind: QueryKind::List,
                         query: Arc::new(github::DesignMeetings {
@@ -462,54 +444,15 @@ pub fn lang<'a>() -> Box<dyn Action + Send + Sync> {
                             with_status: github::DesignMeetingStatus::Scheduled,
                         }),
                     },
-                    QueryMap {
-                        name: "edition_priority_issues",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::ProjectBoard {
-                            project_number: 43,
-                            with_status: Box::new(|status| match status {
-                                Some(status) => status == "Priority",
-                                None => true,
-                            }),
-                        }),
-                    },
                 ],
-            },
-            Query {
-                repos: vec![("rust-lang", "rfcs")],
-                queries: vec![QueryMap {
-                    name: "rfcs_waiting_to_be_merged",
-                    kind: QueryKind::List,
-                    query: Arc::new(github::Query {
-                        filters: vec![("state", "open"), ("is", "pr")],
-                        include_labels: vec![
-                            "disposition-merge",
-                            "finished-final-comment-period",
-                            "T-lang",
-                        ],
-                        exclude_labels: vec![],
-                    }),
-                }],
             },
             Query {
                 repos: vec![
                     ("rust-lang", "rfcs"),
                     ("rust-lang", "rust"),
                     ("rust-lang", "reference"),
-                    ("rust-lang", "lang-team"),
-                    ("rust-lang", "compiler-team"),
-                    ("rust-lang", "rust-project-goals"),
                 ],
                 queries: vec![
-                    QueryMap {
-                        name: "p_critical",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open")],
-                            include_labels: vec!["T-lang", "P-critical"],
-                            exclude_labels: vec![],
-                        }),
-                    },
                     QueryMap {
                         name: "nominated",
                         kind: QueryKind::List,
@@ -519,64 +462,7 @@ pub fn lang<'a>() -> Box<dyn Action + Send + Sync> {
                             exclude_labels: vec![],
                         }),
                     },
-                    QueryMap {
-                        name: "radar",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open")],
-                            include_labels: vec!["I-lang-radar"],
-                            exclude_labels: vec![],
-                        }),
-                    },
-                    QueryMap {
-                        name: "waiting_on_lang_team",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open")],
-                            include_labels: vec!["S-waiting-on-team", "T-lang"],
-                            exclude_labels: vec![],
-                        }),
-                    },
-                    QueryMap {
-                        name: "proposed_fcp",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open")],
-                            include_labels: vec!["T-lang", "proposed-final-comment-period"],
-                            exclude_labels: vec!["finished-final-comment-period"],
-                        }),
-                    },
-                    QueryMap {
-                        name: "in_fcp",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open")],
-                            include_labels: vec!["T-lang", "final-comment-period"],
-                            exclude_labels: vec!["finished-final-comment-period"],
-                        }),
-                    },
-                    QueryMap {
-                        name: "finished_fcp",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open")],
-                            include_labels: vec!["T-lang", "finished-final-comment-period"],
-                            exclude_labels: vec![],
-                        }),
-                    },
                 ],
-            },
-            Query {
-                repos: vec![("rust-lang", "rust")],
-                queries: vec![QueryMap {
-                    name: "edition_tracking",
-                    kind: QueryKind::List,
-                    query: Arc::new(github::Query {
-                        filters: vec![("state", "open")],
-                        include_labels: vec!["A-edition-2025", "C-tracking-issue", "T-lang"],
-                        exclude_labels: vec!["S-tracking-ready-for-edition"],
-                    }),
-                }],
             },
         ],
     })
