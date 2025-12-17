@@ -447,11 +447,26 @@ pub fn lang<'a>() -> Box<dyn Action + Send + Sync> {
                 ],
             },
             Query {
+                repos: vec![("rust-lang", "rust-project-goals")],
+                queries: vec![
+                    QueryMap {
+                        name: "project_goals",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["T-lang"],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                ],
+            },
+            Query {
                 repos: vec![
                     ("rust-lang", "rfcs"),
                     ("rust-lang", "rust"),
                     ("rust-lang", "reference"),
                     ("rust-lang", "stdarch"),
+                    ("rust-lang", "lang-team"),
                 ],
                 queries: vec![
                     QueryMap {
