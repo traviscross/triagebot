@@ -1,0 +1,22 @@
+{% import "_issues_heading_with_labels.tt" as issues_heading %}
+---
+title: Lang-docs office hours meeting {{CURRENT_DATE}}
+tags: ["lang-docs", "triage-meeting", "minutes"]
+date: {{CURRENT_DATE}}
+discussion:
+url:
+---
+
+# Lang-docs office hours
+
+- Meeting date: {{CURRENT_DATE}}
+
+## People
+
+People:
+
+## Announcements or custom items
+
+(Meeting attendees, feel free to add items here!)
+
+## Nominated issues{{issues_heading::render(issues=nominated)}}

@@ -542,6 +542,32 @@ pub fn lang_design<'a>() -> Box<dyn Action + Send + Sync> {
     })
 }
 
+pub fn lang_docs_triage<'a>() -> Box<dyn Action + Send + Sync> {
+    Box::new(Step {
+        name: "lang_docs_triage",
+        actions: vec![
+            Query {
+                repos: vec![
+                    ("rust-lang", "reference"),
+                    ("rust-lang", "rfcs"),
+                    ("rust-lang", "rust"),
+                ],
+                queries: vec![
+                    QueryMap {
+                        name: "nominated",
+                        kind: QueryKind::List,
+                        query: Arc::new(github::Query {
+                            filters: vec![("state", "open")],
+                            include_labels: vec!["I-lang-docs-nominated"],
+                            exclude_labels: vec![],
+                        }),
+                    },
+                ],
+            },
+        ],
+    })
+}
+
 pub fn rfl_triage<'a>() -> Box<dyn Action + Send + Sync> {
     Box::new(Step {
         name: "rfl_triage",
