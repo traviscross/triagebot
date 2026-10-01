@@ -32,6 +32,5 @@ Edit the schedule here: https://github.com/orgs/rust-lang/projects/31/views/7.
 
 (Meeting attendees, feel free to add items here!)
 
-{{announcements}}
 ## Nominated RFCs, PRs, and issues{{issues_heading::render(issues=nominated)}}
 ## Project goals{{issues_heading::render(issues=project_goals)}}

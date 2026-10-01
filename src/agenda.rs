@@ -435,30 +435,26 @@ pub fn lang<'a>() -> Box<dyn Action + Send + Sync> {
         actions: vec![
             Query {
                 repos: vec![("rust-lang", "lang-team")],
-                queries: vec![
-                    QueryMap {
-                        name: "scheduled_meetings",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::DesignMeetings {
-                            project_number: 31,
-                            with_status: github::DesignMeetingStatus::Scheduled,
-                        }),
-                    },
-                ],
+                queries: vec![QueryMap {
+                    name: "scheduled_meetings",
+                    kind: QueryKind::List,
+                    query: Arc::new(github::DesignMeetings {
+                        project_number: 31,
+                        with_status: github::DesignMeetingStatus::Scheduled,
+                    }),
+                }],
             },
             Query {
-                repos: vec![("rust-lang", "rust-project-goals")],
-                queries: vec![
-                    QueryMap {
-                        name: "project_goals",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open")],
-                            include_labels: vec!["T-lang"],
-                            exclude_labels: vec![],
-                        }),
-                    },
-                ],
+                repos: vec![("rust-lang", "goals")],
+                queries: vec![QueryMap {
+                    name: "project_goals",
+                    kind: QueryKind::List,
+                    query: Arc::new(github::Query {
+                        filters: vec![("state", "open")],
+                        include_labels: vec!["T-lang"],
+                        exclude_labels: vec![],
+                    }),
+                }],
             },
             Query {
                 repos: vec![
@@ -467,18 +463,17 @@ pub fn lang<'a>() -> Box<dyn Action + Send + Sync> {
                     ("rust-lang", "reference"),
                     ("rust-lang", "stdarch"),
                     ("rust-lang", "lang-team"),
+                    ("rust-lang", "goals"),
                 ],
-                queries: vec![
-                    QueryMap {
-                        name: "nominated",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open")],
-                            include_labels: vec!["I-lang-nominated"],
-                            exclude_labels: vec![],
-                        }),
-                    },
-                ],
+                queries: vec![QueryMap {
+                    name: "nominated",
+                    kind: QueryKind::List,
+                    query: Arc::new(github::Query {
+                        filters: vec![("state", "open")],
+                        include_labels: vec!["I-lang-nominated"],
+                        exclude_labels: vec![],
+                    }),
+                }],
             },
         ],
     })
@@ -545,26 +540,22 @@ pub fn lang_design<'a>() -> Box<dyn Action + Send + Sync> {
 pub fn lang_docs_triage<'a>() -> Box<dyn Action + Send + Sync> {
     Box::new(Step {
         name: "lang_docs_triage",
-        actions: vec![
-            Query {
-                repos: vec![
-                    ("rust-lang", "reference"),
-                    ("rust-lang", "rfcs"),
-                    ("rust-lang", "rust"),
-                ],
-                queries: vec![
-                    QueryMap {
-                        name: "nominated",
-                        kind: QueryKind::List,
-                        query: Arc::new(github::Query {
-                            filters: vec![("state", "open")],
-                            include_labels: vec!["I-lang-docs-nominated"],
-                            exclude_labels: vec![],
-                        }),
-                    },
-                ],
-            },
-        ],
+        actions: vec![Query {
+            repos: vec![
+                ("rust-lang", "reference"),
+                ("rust-lang", "rfcs"),
+                ("rust-lang", "rust"),
+            ],
+            queries: vec![QueryMap {
+                name: "nominated",
+                kind: QueryKind::List,
+                query: Arc::new(github::Query {
+                    filters: vec![("state", "open")],
+                    include_labels: vec!["I-lang-docs-nominated"],
+                    exclude_labels: vec![],
+                }),
+            }],
+        }],
     })
 }
 
