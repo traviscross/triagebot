@@ -1,0 +1,22 @@
+{% import "_issues_heading.tt" as issues_heading %}
+---
+title: Goals meeting {{CURRENT_DATE}}
+tags: ["goals", "meeting", "minutes"]
+date: {{CURRENT_DATE}}
+discussion:
+url:
+---
+
+# Goals team meeting {{CURRENT_DATE}}
+
+## Attendance
+
+- TODO
+
+## Custom items
+
+TODO
+
+## Nominated{{issues_heading::render(issues=nominated)}}
+## Proposals{{issues_heading::render(issues=proposals)}}
+## Meta{{issues_heading::render(issues=meta)}}

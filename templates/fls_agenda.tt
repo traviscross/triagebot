@@ -1,0 +1,22 @@
+{% import "_issues_heading.tt" as issues_heading %}
+---
+title: FLS team meeting {{CURRENT_DATE}}
+tags: ["fls", "meeting", "minutes"]
+date: {{CURRENT_DATE}}
+discussion: https://rust-lang.zulipchat.com/#narrow/channel/520710-t-lang.2Ffls/topic/{{CURRENT_DATE}}.20meeting/
+url:
+---
+
+# FLS team meeting {{CURRENT_DATE}}
+
+## Attendees
+
+- TODO
+- TODO (notetaker)
+
+## Custom items
+
+TODO
+
+## Nominated{{issues_heading::render(issues=nominated)}}
+## Open PRs{{issues_heading::render(issues=open_prs)}}
